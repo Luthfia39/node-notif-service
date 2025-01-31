@@ -1,6 +1,6 @@
 generator client {
-  provider         = "prisma-client-js"
-  output           = "../generated/notification"
+  provider = "prisma-client-js"
+  output   = "../generated/notification"
 }
 
 datasource db {
@@ -8,7 +8,14 @@ datasource db {
   url      = env("NOTIF_DATABASE_URL")
 }
 
-model mst_notif {
-  id             Int      @id @default(autoincrement())
-  notif_name     String   @db.VarChar(255)
+model mst_notification {
+  id        String   @id @default(uuid())
+  message   String
+  type      String
+  userId    String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
 }
